@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Quest: 2026-2029</title>
+    <style>
+        /* Desain Gaming & Neon */
+        :root {
+            --neon-blue: #00f2ff;
+            --neon-pink: #ff00e5;
+            --bg-dark: #0a0a12;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at center, #1a1a2e 0%, #0a0a12 100%);
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .card {
+            background: rgba(15, 15, 25, 0.9);
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue), inset 0 0 10px rgba(0, 242, 255, 0.2);
+            border-radius: 10px;
+            padding: 25px;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .card::before {
+            content: "SYSTEM ONLINE: 2026";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--bg-dark);
+            padding: 0 10px;
+            font-size: 12px;
+            color: var(--neon-blue);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+            margin-bottom: 20px;
+        }
+
+        .quest-box { margin-bottom: 15px; }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 5px;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+        }
+
+        textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            border-left: 3px solid var(--neon-pink);
+            color: #00ffcc;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: sans-serif;
+            resize: none;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 8px var(--neon-blue);
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn-save {
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        .btn-save:hover {
+            background: var(--neon-blue);
+            color: #000;
+        }
+
+        .btn-share {
+            background: #25d366;
+            color: #fff;
+        }
+
+        .btn-share:hover {
+            box-shadow: 0 0 15px #25d366;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 10px;
+            color: #555;
+        }
+
+        #status { color: #00ff00; font-size: 11px; text-align: center; height: 15px; margin-bottom: 5px;}
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>3-YEAR FUTURE QUEST</h1>
+    <div id="status"></div>
+
+    <div class="quest-box">
+        <label>⚡ Year 1 (2026-2027)</label>
+        <textarea id="q2026" rows="2" placeholder="Input target utama tahun ini..."></textarea>
+    </div>
+
+    <div class="quest-box">
+        <label>⚔️ Year 2 (2027-2028)</label>
+        <textarea id="q2027" rows="2" placeholder="Evolusi dan pencapaian baru..."></textarea>
+    </div>
+
+    <div class="quest-box">
+        <label>🏆 Year 3 (2028-2029)</label>
+        <textarea id="q2028" rows="2" placeholder="Tujuan akhir / Final Boss clear!"></textarea>
+    </div>
+
+    <div class="actions">
+        <button class="btn-save" onclick="checkpoint()">Save Data</button>
+        <button class="btn-share" onclick="sendToWA()">Share WA</button>
+    </div>
+
+    <div class="footer">
+        [ STATUS: ENCRYPTED ] | [ DATA: LOCAL STORAGE ]
+    </div>
+</div>
+
+<script>
+    // Load Data
+    window.onload = () => {
+        document.getElementById('q2026').value = localStorage.getItem('y26') || "";
+        document.getElementById('q2027').value = localStorage.getItem('y27') || "";
+        document.getElementById('q2028').value = localStorage.getItem('y28') || "";
+    };
+
+    // Save Data (LocalStorage)
+    function checkpoint() {
+        localStorage.setItem('y26', document.getElementById('q2026').value);
+        localStorage.setItem('y27', document.getElementById('q2027').value);
+        localStorage.setItem('y28', document.getElementById('q2028').value);
+        
+        const status = document.getElementById('status');
+        status.innerText = ">> CHECKPOINT SAVED! <<";
+        setTimeout(() => { status.innerText = ""; }, 2000);
+    }
+
+    // Share to WhatsApp
+    function sendToWA() {
+        const q1 = document.getElementById('q2026').value || "-";
+        const q2 = document.getElementById('q2027').value || "-";
+        const q3 = document.getElementById('q2028').value || "-";
+
+        const text = `*🎮 MY 3-YEAR GAMING QUEST (2026-2029) 🎮*%0A%0A` +
+                     `*⚡ TAHUN 1 (2026):*%0A${q1}%0A%0A` +
+                     `*⚔️ TAHUN 2 (2027):*%0A${q2}%0A%0A` +
+                     `*🏆 TAHUN 3 (2028):*%0A${q3}%0A%0A` +
+                     `_Dibuat via My Gaming Future_`;
+
+        window.open(`https://wa.me/?text=${text}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
